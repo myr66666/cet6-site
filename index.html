@@ -140,6 +140,7 @@
       <button data-page="translation">翻译</button>
       <button data-page="writing">写作</button>
       <button data-page="mock">模拟测试</button>
+      <button data-page="papers">真题题库</button>
       <button data-page="stats">学习统计</button>
     </nav>
   </div>
@@ -157,7 +158,7 @@
     </div>
     <div class="card stat-card">
       <div class="stat-num" id="home-known">0</div>
-      <div class="stat-label">已掌握单词 / 200</div>
+      <div class="stat-label">已掌握单词（核心200 + 大纲2273）</div>
     </div>
     <div class="card stat-card">
       <div class="stat-num" id="home-streak">0</div>
@@ -189,8 +190,8 @@
 
 <!-- ============ 单词 ============ -->
 <section id="page-words" class="page">
-  <h2>六级高频词库（200词）</h2>
-  <p class="sub">浏览、卡片记忆、自测三合一。标记"不认识"的单词会进入生词本。</p>
+  <h2>六级词库</h2>
+  <p class="sub">高频核心 200 词（含例句）+ 六级大纲全库 2273 词（含音标）。标记"不认识"的单词会进入生词本。</p>
   <div class="tabs">
     <button class="active" data-wtab="list">词库浏览</button>
     <button data-wtab="card">卡片记忆</button>
@@ -200,17 +201,26 @@
 
   <div id="wtab-list">
     <div class="card">
+      <div class="tabs" style="margin-bottom:12px">
+        <button id="pool-core" class="active" onclick="setPool('core')">高频核心词 · 200</button>
+        <button id="pool-full" onclick="setPool('full')">大纲全库 · 2273</button>
+      </div>
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px">
-        <input class="search" id="word-search" placeholder="搜索单词或中文释义…" oninput="renderWordList()">
-        <div style="font-size:13px; color:var(--muted)">已掌握 <b id="known-count" style="color:var(--primary)">0</b> / 200
+        <input class="search" id="word-search" placeholder="搜索单词或中文释义…" oninput="renderWordList(true)">
+        <div style="font-size:13px; color:var(--muted)">已掌握 <b id="known-count" style="color:var(--primary)">0</b> <span id="known-total">/ 200</span>
           <div class="progress-wrap" style="width:160px; margin-top:6px"><div class="progress-bar" id="known-bar" style="width:0%"></div></div>
         </div>
       </div>
       <div style="overflow-x:auto">
       <table>
-        <thead><tr><th>单词</th><th>词性/释义</th><th>例句</th><th style="width:110px">发音/标记</th></tr></thead>
+        <thead><tr><th>单词</th><th>音标/词性/释义</th><th>例句</th><th style="width:110px">发音/标记</th></tr></thead>
         <tbody id="word-tbody"></tbody>
       </table>
+      </div>
+      <div id="word-pager" style="display:none; margin-top:14px; text-align:center">
+        <button class="btn ghost sm" onclick="pageFull(-1)">上一页</button>
+        <span id="pager-info" style="margin:0 14px; font-size:13px; color:var(--muted)"></span>
+        <button class="btn ghost sm" onclick="pageFull(1)">下一页</button>
       </div>
     </div>
   </div>
@@ -254,8 +264,18 @@
 <!-- ============ 听力 ============ -->
 <section id="page-listening" class="page">
   <h2>听力训练</h2>
-  <p class="sub">点击播放，浏览器语音引擎会朗读对话/短文。先盲听做题，再看原文核对。</p>
-  <div id="listening-list"></div>
+  <p class="sub">上半部分是 2024-2025 六级考场真题音频；下半部分是互动听力练习（语音朗读+做题）。</p>
+  <div class="card">
+    <h2 style="font-size:18px">真题听力音频（考场原音）</h2>
+    <p class="sub">文件较大（12-25MB），点击播放后需缓冲几秒。听力原文、题目和答案见「真题题库」页对应试卷。</p>
+    <div class="grid grid-2" id="real-audio"></div>
+    <p class="sub" style="margin-top:10px">音频来源：github.com/Jiebochecheckin/cet6（2024.06 / 2024.12 / 2025.06 三套考试）</p>
+  </div>
+  <div class="card">
+    <h2 style="font-size:18px">互动听力练习</h2>
+    <p class="sub">浏览器语音引擎朗读对话/短文，先盲听做题，再看原文核对。</p>
+    <div id="listening-list"></div>
+  </div>
 </section>
 
 <!-- ============ 阅读 ============ -->
@@ -290,6 +310,20 @@
   </div>
 </section>
 
+<!-- ============ 真题题库 ============ -->
+<section id="page-papers" class="page">
+  <h2>历年真题题库</h2>
+  <p class="sub">2021-2026 年六级真题，每套含：在线试卷、PDF 下载、答案解析、听力音频。来源为懒笔记等公开整理，点击跳转到来源站查看。</p>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <thead><tr><th>试卷</th><th style="width:320px">资源</th></tr></thead>
+      <tbody id="papers-tbody"></tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 统计 ============ -->
 <section id="page-stats" class="page">
   <h2>学习统计</h2>
@@ -313,6 +347,8 @@
 </section>
 </main>
 
+<script src="words-full.js"></script>
+<script src="papers-data.js"></script>
 <script>
 /* ================= 数据 ================= */
 const WORDS = [
@@ -715,34 +751,68 @@ function dailyWord(keep){
 }
 
 /* ================= 单词：列表 ================= */
-function renderWordList(){
+let wordPool = "core", fullPage = 0;
+const PAGE_SIZE = 50;
+function setPool(p){
+  wordPool = p; fullPage = 0;
+  document.getElementById("pool-core").classList.toggle("active", p==="core");
+  document.getElementById("pool-full").classList.toggle("active", p==="full");
+  renderWordList();
+}
+function pageFull(d){ fullPage = Math.max(0, fullPage + d); renderWordList(); }
+function renderWordList(resetPage){
+  if(resetPage) fullPage = 0;
   const kw = (document.getElementById("word-search").value || "").toLowerCase();
   const tb = document.getElementById("word-tbody");
   tb.innerHTML = "";
-  WORDS.forEach((w,i)=>{
-    if(kw && !w[0].toLowerCase().includes(kw) && !w[2].includes(kw)) return;
-    const known = state.known.includes(w[0]);
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><span class="word-en">${w[0]}</span></td>
-      <td><span class="pos">${w[1]}</span>${w[2]}</td>
-      <td style="color:var(--muted); font-size:13px">${w[3]}<br>${w[4]}</td>
-      <td>
-        <button class="icon-btn" title="发音" onclick="speak('${w[0]}')">🔊</button>
-        <button class="btn sm ${known?"green":"ghost"}" onclick="toggleKnown(${i})">${known?"已掌握":"标为掌握"}</button>
-      </td>`;
-    tb.appendChild(tr);
-  });
+  const pager = document.getElementById("word-pager");
+  if(wordPool === "core"){
+    pager.style.display = "none";
+    WORDS.forEach((w,i)=>{
+      if(kw && !w[0].toLowerCase().includes(kw) && !w[2].includes(kw)) return;
+      const known = state.known.includes(w[0]);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><span class="word-en">${w[0]}</span></td>
+        <td><span class="pos">${w[1]}</span>${w[2]}</td>
+        <td style="color:var(--muted); font-size:13px">${w[3]}<br>${w[4]}</td>
+        <td>
+          <button class="icon-btn" title="发音" onclick="speak('${w[0]}')">🔊</button>
+          <button class="btn sm ${known?"green":"ghost"}" onclick="toggleWord('${w[0]}')">${known?"已掌握":"标为掌握"}</button>
+        </td>`;
+      tb.appendChild(tr);
+    });
+    document.getElementById("known-total").textContent = "/ " + WORDS.length;
+    document.getElementById("known-bar").style.width = (state.known.length/WORDS.length*100)+"%";
+  } else {
+    const filtered = kw ? FULL_WORDS.filter(w=>w[0].toLowerCase().includes(kw) || w[2].includes(kw)) : FULL_WORDS;
+    const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if(fullPage >= pages) fullPage = pages - 1;
+    filtered.slice(fullPage*PAGE_SIZE, (fullPage+1)*PAGE_SIZE).forEach(w=>{
+      const known = state.known.includes(w[0]);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><span class="word-en">${w[0]}</span></td>
+        <td colspan="2" style="font-size:13px">${w[1]?`<span style="color:var(--muted)">[${w[1]}]</span> `:""}${w[2]}</td>
+        <td>
+          <button class="icon-btn" title="发音" onclick="speak('${w[0]}')">🔊</button>
+          <button class="btn sm ${known?"green":"ghost"}" onclick="toggleWord('${w[0]}')">${known?"已掌握":"标为掌握"}</button>
+        </td>`;
+      tb.appendChild(tr);
+    });
+    pager.style.display = "block";
+    document.getElementById("pager-info").textContent = `第 ${fullPage+1} / ${pages} 页 · 共 ${filtered.length} 词`;
+    document.getElementById("known-total").textContent = "/ " + FULL_WORDS.length;
+    document.getElementById("known-bar").style.width = (state.known.length/FULL_WORDS.length*100)+"%";
+  }
   document.getElementById("known-count").textContent = state.known.length;
-  document.getElementById("known-bar").style.width = (state.known.length/WORDS.length*100)+"%";
 }
-function toggleKnown(i){
-  const w = WORDS[i][0];
-  const k = state.known.indexOf(w);
+function toggleWord(name){
+  const k = state.known.indexOf(name);
   if(k>=0){ state.known.splice(k,1); }
   else{
-    state.known.push(w);
-    const nb = state.notebook.indexOf(w);
+    state.known.push(name);
+    const nb = state.notebook.indexOf(name);
     if(nb>=0) state.notebook.splice(nb,1);
   }
   save(); renderWordList();
@@ -1023,9 +1093,43 @@ function startMock(){
   }, 1000);
 }
 
+/* ================= 真题音频 & 题库 ================= */
+const REAL_AUDIOS = [
+  ["2025年6月 · 第一套听力","20250601.mp3"],
+  ["2025年6月 · 第二/三套听力","20250602.mp3"],
+  ["2024年12月 · 第一套听力","20241201.mp3"],
+  ["2024年12月 · 第二/三套听力","20241202.mp3"],
+  ["2024年6月 · 第一套听力","20240601.mp3"],
+  ["2024年6月 · 第二/三套听力","20240602.mp3"]
+];
+function renderRealAudio(){
+  const wrap = document.getElementById("real-audio");
+  REAL_AUDIOS.forEach(([label, file])=>{
+    const div = document.createElement("div");
+    div.style.cssText = "background:#f6f7fc; border-radius:12px; padding:14px 16px";
+    div.innerHTML = `<div style="font-weight:600; font-size:14px; margin-bottom:8px">${label}</div>
+      <audio controls preload="none" style="width:100%; height:36px" src="https://jiebochecheckin.github.io/cet6/${file}"></audio>`;
+    wrap.appendChild(div);
+  });
+}
+function renderPapers(){
+  const tb = document.getElementById("papers-tbody");
+  PAPERS.forEach(p=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td style="white-space:nowrap; font-weight:600">${p.t}</td>
+      <td>
+        <a class="btn sm ghost" href="${p.h}" target="_blank">在线试卷</a>
+        <a class="btn sm ghost" href="${p.pdf}" target="_blank">PDF 下载</a>
+        ${p.a?`<a class="btn sm ghost" href="${p.a}" target="_blank">答案解析</a>`:""}
+        ${p.au?`<a class="btn sm ghost" href="${p.au}" target="_blank">听力音频</a>`:""}
+      </td>`;
+    tb.appendChild(tr);
+  });
+}
+
 /* ================= 统计 ================= */
 function renderStats(){
-  document.getElementById("st-known").textContent = state.known.length + " / " + WORDS.length;
+  document.getElementById("st-known").textContent = state.known.length;
   document.getElementById("st-quiz-count").textContent = state.quizHistory.length;
   if(state.quizHistory.length){
     const avg = state.quizHistory.reduce((s,q)=>s+q.score/q.total,0)/state.quizHistory.length;
@@ -1070,6 +1174,8 @@ renderListening();
 renderReading();
 renderTranslation();
 renderWriting();
+renderRealAudio();
+renderPapers();
 </script>
 </body>
 </html>
