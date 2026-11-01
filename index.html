@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>六级通关站 | CET-6 备考</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --primary:#4f46e5; --primary-dark:#4338ca; --accent:#7c3aed;
+    --bg:#f3f4f8; --card:#ffffff; --text:#1f2430; --muted:#6b7280;
+    --green:#16a34a; --red:#dc2626; --amber:#d97706;
+    --shadow:0 2px 10px rgba(30,30,60,.08);
+  }
+  body{ font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Segoe UI",sans-serif;
+        background:var(--bg); color:var(--text); min-height:100vh; }
+  header{
+    background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#9333ea 100%);
+    color:#fff; padding:0 20px; position:sticky; top:0; z-index:50; box-shadow:0 2px 12px rgba(79,70,229,.3);
+  }
+  .header-inner{ max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:24px; height:60px; }
+  .logo{ font-size:20px; font-weight:800; letter-spacing:1px; white-space:nowrap; }
+  .logo small{ font-weight:400; opacity:.8; font-size:12px; margin-left:6px; }
+  nav{ display:flex; gap:4px; overflow-x:auto; flex:1; }
+  nav button{
+    background:transparent; border:none; color:rgba(255,255,255,.85); font-size:14px;
+    padding:8px 14px; border-radius:8px; cursor:pointer; white-space:nowrap; font-family:inherit;
+  }
+  nav button:hover{ background:rgba(255,255,255,.15); color:#fff; }
+  nav button.active{ background:rgba(255,255,255,.22); color:#fff; font-weight:600; }
+  main{ max-width:1100px; margin:0 auto; padding:24px 20px 60px; }
+  .page{ display:none; animation:fade .25s ease; }
+  .page.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+  h2{ font-size:22px; margin-bottom:6px; }
+  .sub{ color:var(--muted); font-size:14px; margin-bottom:20px; }
+  .card{ background:var(--card); border-radius:14px; padding:22px; box-shadow:var(--shadow); margin-bottom:18px; }
+  .grid{ display:grid; gap:16px; }
+  .grid-3{ grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+  .grid-2{ grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+  .stat-card{ text-align:center; padding:26px 14px; }
+  .stat-num{ font-size:34px; font-weight:800; color:var(--primary); }
+  .stat-label{ color:var(--muted); font-size:13px; margin-top:4px; }
+  .btn{
+    display:inline-block; background:var(--primary); color:#fff; border:none; padding:10px 20px;
+    border-radius:10px; font-size:14px; cursor:pointer; font-family:inherit; transition:.15s;
+  }
+  .btn:hover{ background:var(--primary-dark); }
+  .btn.ghost{ background:#eef0fb; color:var(--primary); }
+  .btn.ghost:hover{ background:#e0e3f8; }
+  .btn.green{ background:var(--green); } .btn.green:hover{ background:#15803d; }
+  .btn.red{ background:var(--red); } .btn.red:hover{ background:#b91c1c; }
+  .btn.sm{ padding:6px 12px; font-size:13px; border-radius:8px; }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .tabs{ display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+  .tabs button{ background:#e7e9f4; border:none; padding:8px 16px; border-radius:999px;
+    font-size:13px; cursor:pointer; color:#4b5563; font-family:inherit; }
+  .tabs button.active{ background:var(--primary); color:#fff; }
+  .progress-wrap{ background:#e5e7f0; border-radius:999px; height:10px; overflow:hidden; }
+  .progress-bar{ height:100%; background:linear-gradient(90deg,#4f46e5,#7c3aed); border-radius:999px; transition:width .4s; }
+  table{ width:100%; border-collapse:collapse; font-size:14px; }
+  th,td{ text-align:left; padding:10px 12px; border-bottom:1px solid #eef0f5; }
+  th{ color:var(--muted); font-weight:600; font-size:13px; background:#fafafc; }
+  tr:hover td{ background:#f8f9ff; }
+  .word-en{ font-weight:700; color:var(--primary); font-size:15px; }
+  .pos{ color:var(--accent); font-size:12px; margin-right:6px; font-style:italic; }
+  .icon-btn{ background:none; border:none; cursor:pointer; font-size:16px; padding:2px 6px; border-radius:6px; }
+  .icon-btn:hover{ background:#eef0fb; }
+  /* flashcard */
+  .flashcard{ width:100%; max-width:520px; height:280px; margin:0 auto; perspective:1000px; cursor:pointer; }
+  .flashcard-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+  .flashcard.flipped .flashcard-inner{ transform:rotateY(180deg); }
+  .fc-face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:18px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; box-shadow:var(--shadow); }
+  .fc-front{ background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; }
+  .fc-back{ background:#fff; transform:rotateY(180deg); text-align:center; }
+  .fc-word{ font-size:40px; font-weight:800; }
+  .fc-hint{ margin-top:14px; opacity:.75; font-size:13px; }
+  .fc-meaning{ font-size:22px; font-weight:700; margin-bottom:10px; }
+  .fc-example{ color:var(--muted); font-size:14px; line-height:1.7; }
+  .fc-controls{ display:flex; gap:14px; justify-content:center; margin-top:18px; }
+  /* quiz */
+  .q-block{ margin-bottom:22px; padding-bottom:18px; border-bottom:1px dashed #e3e5f0; }
+  .q-block:last-child{ border-bottom:none; }
+  .q-title{ font-weight:600; margin-bottom:12px; line-height:1.6; }
+  .opt{ display:block; width:100%; text-align:left; background:#f6f7fc; border:2px solid transparent;
+    border-radius:10px; padding:10px 14px; margin-bottom:8px; cursor:pointer; font-size:14px; font-family:inherit; transition:.12s; }
+  .opt:hover{ border-color:#c7c9ec; background:#eef0fb; }
+  .opt.selected{ border-color:var(--primary); background:#eef0ff; }
+  .opt.correct{ border-color:var(--green); background:#e9f9ef; }
+  .opt.wrong{ border-color:var(--red); background:#fdecec; }
+  .explain{ display:none; background:#f0f9ff; border-left:4px solid #3b82f6; padding:10px 14px;
+    border-radius:8px; font-size:13px; margin-top:8px; line-height:1.7; }
+  .passage{ background:#fafafc; border-radius:12px; padding:18px 20px; line-height:1.9; font-size:15px; margin-bottom:20px; }
+  .passage p{ margin-bottom:12px; }
+  textarea{ width:100%; min-height:90px; border:2px solid #e3e5f0; border-radius:10px; padding:12px;
+    font-size:14px; font-family:inherit; resize:vertical; }
+  textarea:focus{ outline:none; border-color:var(--primary); }
+  .ref-answer{ display:none; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px;
+    padding:14px 16px; margin-top:10px; font-size:14px; line-height:1.8; }
+  details{ border:1px solid #e7e9f4; border-radius:12px; margin-bottom:12px; overflow:hidden; }
+  summary{ padding:14px 18px; cursor:pointer; font-weight:600; background:#fafafc; }
+  summary:hover{ background:#f0f1fa; }
+  details .content{ padding:16px 18px; font-size:14px; line-height:1.9; }
+  details .content pre{ background:#f6f7fc; padding:14px; border-radius:10px; white-space:pre-wrap;
+    font-family:inherit; font-size:13px; line-height:1.9; margin:10px 0; }
+  .tag{ display:inline-block; background:#eef0ff; color:var(--primary); padding:3px 10px;
+    border-radius:999px; font-size:12px; margin:3px 4px 3px 0; }
+  .phrase{ display:inline-block; background:#f6f7fc; border:1px solid #e7e9f4; padding:8px 14px;
+    border-radius:10px; margin:0 8px 10px 0; font-size:13px; cursor:pointer; }
+  .phrase:hover{ background:#eef0ff; border-color:#c7c9ec; }
+  .calendar{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:12px; }
+  .cal-day{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:8px;
+    background:#f6f7fc; font-size:13px; color:#4b5563; }
+  .cal-day.checked{ background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; font-weight:700; }
+  .cal-day.head{ background:none; color:var(--muted); font-size:12px; }
+  .timer{ font-size:28px; font-weight:800; color:var(--red); font-variant-numeric:tabular-nums; }
+  .badge{ display:inline-block; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+  .badge.g{ background:#dcfce7; color:#15803d; } .badge.r{ background:#fee2e2; color:#b91c1c; }
+  .search{ width:100%; max-width:320px; padding:9px 14px; border:2px solid #e3e5f0; border-radius:10px; font-size:14px; font-family:inherit; }
+  .search:focus{ outline:none; border-color:var(--primary); }
+  .tip-box{ background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:14px 18px; font-size:13px; line-height:1.8; }
+  .result-hero{ text-align:center; padding:30px 0 10px; }
+  .result-score{ font-size:56px; font-weight:800; color:var(--primary); }
+  @media (max-width:640px){
+    .header-inner{ flex-wrap:wrap; height:auto; padding:10px 0; gap:10px; }
+    .fc-word{ font-size:30px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="logo">六级通关站<small>CET-6 Bootcamp</small></div>
+    <nav id="nav">
+      <button data-page="home" class="active">首页</button>
+      <button data-page="words">单词</button>
+      <button data-page="listening">听力</button>
+      <button data-page="reading">阅读</button>
+      <button data-page="translation">翻译</button>
+      <button data-page="writing">写作</button>
+      <button data-page="mock">模拟测试</button>
+      <button data-page="stats">学习统计</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ============ 首页 ============ -->
+<section id="page-home" class="page active">
+  <h2>六级备考，一站搞定</h2>
+  <p class="sub">单词 · 听力 · 阅读 · 翻译 · 写作 · 模拟测试，数据保存在本地，打开就能学。</p>
+  <div class="grid grid-3">
+    <div class="card stat-card">
+      <div class="stat-num" id="countdown-days">--</div>
+      <div class="stat-label">距离下次六级考试（预估 2026-12-19）</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-num" id="home-known">0</div>
+      <div class="stat-label">已掌握单词 / 200</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-num" id="home-streak">0</div>
+      <div class="stat-label">连续打卡天数</div>
+    </div>
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2 style="font-size:18px">今日打卡</h2>
+      <p class="sub" id="checkin-status">完成今天的学习任务后记得打卡</p>
+      <button class="btn green" id="btn-checkin" onclick="checkIn()">打卡 +1</button>
+      <button class="btn ghost" style="margin-left:10px" onclick="dailyWord()">换个今日单词</button>
+      <div id="daily-word" style="margin-top:18px"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:18px">备考路线建议</h2>
+      <div style="font-size:14px; line-height:2.1; margin-top:8px">
+        <span class="tag">第1-4周</span> 每天30个高频词 + 1篇阅读<br>
+        <span class="tag">第5-8周</span> 加入听力精听 + 翻译练习<br>
+        <span class="tag">第9-10周</span> 写作模板背诵 + 每周2次模拟测试<br>
+        <span class="tag">考前2周</span> 刷错题、复习生词本、全真计时模考
+      </div>
+    </div>
+  </div>
+  <div class="tip-box">
+    <b>使用提示：</b>单词和听力页面都有 🔊 按钮，点击即可朗读（调用浏览器语音）。先在「单词」页刷词并标记认识/不认识，不认识的会自动进入生词本；之后去「模拟测试」检验效果，学习统计页会记录你的全部进度。
+  </div>
+</section>
+
+<!-- ============ 单词 ============ -->
+<section id="page-words" class="page">
+  <h2>六级高频词库（200词）</h2>
+  <p class="sub">浏览、卡片记忆、自测三合一。标记"不认识"的单词会进入生词本。</p>
+  <div class="tabs">
+    <button class="active" data-wtab="list">词库浏览</button>
+    <button data-wtab="card">卡片记忆</button>
+    <button data-wtab="quiz">单词自测</button>
+    <button data-wtab="notebook">生词本</button>
+  </div>
+
+  <div id="wtab-list">
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px">
+        <input class="search" id="word-search" placeholder="搜索单词或中文释义…" oninput="renderWordList()">
+        <div style="font-size:13px; color:var(--muted)">已掌握 <b id="known-count" style="color:var(--primary)">0</b> / 200
+          <div class="progress-wrap" style="width:160px; margin-top:6px"><div class="progress-bar" id="known-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>单词</th><th>词性/释义</th><th>例句</th><th style="width:110px">发音/标记</th></tr></thead>
+        <tbody id="word-tbody"></tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="wtab-card" style="display:none">
+    <div class="card" style="text-align:center">
+      <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="fc-face fc-front">
+            <div class="fc-word" id="fc-word">—</div>
+            <div class="fc-hint">点击卡片查看释义</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="fc-meaning" id="fc-meaning"></div>
+            <div class="fc-example" id="fc-example"></div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-controls">
+        <button class="btn ghost" onclick="event.stopPropagation(); speakWord()">🔊 发音</button>
+        <button class="btn red" onclick="markCard(false)">不认识</button>
+        <button class="btn green" onclick="markCard(true)">认识</button>
+      </div>
+      <p class="sub" style="margin-top:14px" id="fc-progress"></p>
+    </div>
+  </div>
+
+  <div id="wtab-quiz" style="display:none">
+    <div class="card" id="quiz-area"></div>
+  </div>
+
+  <div id="wtab-notebook" style="display:none">
+    <div class="card">
+      <h2 style="font-size:18px">生词本</h2>
+      <p class="sub">你在卡片模式或词库中标记为"不认识"的单词，考前重点攻克它们。</p>
+      <div id="notebook-body"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 听力 ============ -->
+<section id="page-listening" class="page">
+  <h2>听力训练</h2>
+  <p class="sub">点击播放，浏览器语音引擎会朗读对话/短文。先盲听做题，再看原文核对。</p>
+  <div id="listening-list"></div>
+</section>
+
+<!-- ============ 阅读 ============ -->
+<section id="page-reading" class="page">
+  <h2>阅读理解</h2>
+  <p class="sub">两篇六级风格短文，每篇5题。做完后提交查看解析。</p>
+  <div id="reading-list"></div>
+</section>
+
+<!-- ============ 翻译 ============ -->
+<section id="page-translation" class="page">
+  <h2>段落翻译（中译英）</h2>
+  <p class="sub">先自己翻译，再对照参考答案。翻译题占六级总分15%，常考中国文化、社会、科技话题。</p>
+  <div id="translation-list"></div>
+</section>
+
+<!-- ============ 写作 ============ -->
+<section id="page-writing" class="page">
+  <h2>写作模板与素材</h2>
+  <p class="sub">三大常考题型模板 + 高分表达，背熟框架考场上直接套。</p>
+  <div id="writing-content"></div>
+</section>
+
+<!-- ============ 模拟测试 ============ -->
+<section id="page-mock" class="page">
+  <h2>模拟测试</h2>
+  <p class="sub">10道词汇单选 + 1篇阅读（5题），限时15分钟，考完自动评分并计入统计。</p>
+  <div class="card" id="mock-area" style="text-align:center; padding:50px 20px">
+    <div style="font-size:48px">📝</div>
+    <p style="margin:16px 0 22px; color:var(--muted)">准备好了吗？点击开始，计时15分钟。</p>
+    <button class="btn" style="font-size:16px; padding:12px 36px" onclick="startMock()">开始测试</button>
+  </div>
+</section>
+
+<!-- ============ 统计 ============ -->
+<section id="page-stats" class="page">
+  <h2>学习统计</h2>
+  <p class="sub">所有数据保存在本浏览器本地（localStorage），换浏览器会重新开始。</p>
+  <div class="grid grid-3">
+    <div class="card stat-card"><div class="stat-num" id="st-known">0</div><div class="stat-label">已掌握单词</div></div>
+    <div class="card stat-card"><div class="stat-num" id="st-quiz-count">0</div><div class="stat-label">完成测试次数</div></div>
+    <div class="card stat-card"><div class="stat-num" id="st-quiz-avg">--</div><div class="stat-label">测试平均正确率</div></div>
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2 style="font-size:18px">本月打卡日历</h2>
+      <div class="calendar" id="calendar"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:18px">测试记录</h2>
+      <div id="quiz-history" style="margin-top:10px; font-size:14px; line-height:2"></div>
+      <button class="btn red sm" style="margin-top:14px" onclick="resetAll()">清空全部学习数据</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+/* ================= 数据 ================= */
+const WORDS = [
+["abandon","v.","放弃；抛弃","He decided to abandon the original plan.","他决定放弃原来的计划。"],
+["abide","v.","遵守（abide by）","Everyone must abide by the rules.","每个人都必须遵守规则。"],
+["abolish","v.","废除；取消","The outdated law was finally abolished.","这项过时的法律终于被废除了。"],
+["abstract","adj./n.","抽象的；摘要","The concept is too abstract for children.","这个概念对孩子来说太抽象了。"],
+["abundant","adj.","丰富的；充足的","The region has abundant natural resources.","该地区自然资源丰富。"],
+["accelerate","v.","加速；促进","Technology accelerates the pace of change.","科技加快了变革的步伐。"],
+["accessible","adj.","可获得的；易接近的","Online courses make education accessible to all.","网课让所有人都能接受教育。"],
+["accommodate","v.","容纳；为…提供住宿","The hall can accommodate 500 people.","这个大厅能容纳500人。"],
+["accumulate","v.","积累；堆积","She accumulated rich experience over the years.","多年来她积累了丰富的经验。"],
+["acknowledge","v.","承认；致谢","He acknowledged his mistake publicly.","他公开承认了自己的错误。"],
+["acquire","v.","获得；习得","Reading is a good way to acquire knowledge.","阅读是获取知识的好方法。"],
+["adapt","v.","适应；改编","It takes time to adapt to a new environment.","适应新环境需要时间。"],
+["adequate","adj.","足够的；合格的","Make sure you get adequate sleep.","确保你有充足的睡眠。"],
+["adjacent","adj.","邻近的；毗连的","The park is adjacent to the school.","公园毗邻学校。"],
+["advocate","v./n.","提倡；拥护者","Many experts advocate a balanced diet.","许多专家提倡均衡饮食。"],
+["aggressive","adj.","侵略性的；有进取心的","He is aggressive in pursuing his goals.","他追求目标很有冲劲。"],
+["alleviate","v.","减轻；缓解","This medicine can alleviate the pain.","这种药可以缓解疼痛。"],
+["ambiguous","adj.","含糊的；模棱两可的","His answer was deliberately ambiguous.","他的回答故意含糊其辞。"],
+["anticipate","v.","预期；期待","We anticipate a rise in sales this year.","我们预计今年销量会上升。"],
+["apparatus","n.","仪器；装置","The lab is equipped with modern apparatus.","实验室配备了现代化仪器。"],
+["appeal","v./n.","呼吁；吸引；上诉","The idea appeals to young people.","这个想法对年轻人有吸引力。"],
+["approximate","adj.","近似的；大约的","The approximate cost is 500 yuan.","大约花费500元。"],
+["arbitrary","adj.","任意的；专断的","The decision seems completely arbitrary.","这个决定似乎完全是武断的。"],
+["aspect","n.","方面；外观","Consider every aspect of the problem.","考虑问题的每一个方面。"],
+["assemble","v.","集合；组装","The workers assemble cars in the factory.","工人们在工厂组装汽车。"],
+["assert","v.","断言；坚持","She asserted that she was innocent.","她坚称自己是无辜的。"],
+["assess","v.","评估；评定","It is difficult to assess the damage.","很难评估损失程度。"],
+["assign","v.","分配；指派","The teacher assigned us a group project.","老师给我们布置了小组作业。"],
+["associate","v.","联系；联想","People associate red with good luck in China.","在中国，人们把红色和好运联系在一起。"],
+["assume","v.","假定；承担","Don't assume that he knows everything.","不要想当然认为他什么都知道。"],
+["attain","v.","获得；达到","She attained her goal through hard work.","她通过努力达到了目标。"],
+["attribute","v./n.","归因于；属性","He attributes his success to persistence.","他把成功归因于坚持不懈。"],
+["authentic","adj.","真实的；正宗的","This restaurant serves authentic Chinese food.","这家餐馆提供正宗的中餐。"],
+["available","adj.","可获得的；有空的","The book is available in the library.","这本书在图书馆可以借到。"],
+["aware","adj.","意识到的；知道的","We should be aware of the risks.","我们应该意识到风险。"],
+["barrier","n.","障碍；屏障","Language is not a barrier to friendship.","语言不是友谊的障碍。"],
+["beneficial","adj.","有益的","Exercise is beneficial to health.","运动对健康有益。"],
+["bias","n.","偏见；偏向","The report showed a clear bias.","这篇报道带有明显的偏见。"],
+["boost","v./n.","促进；提高","Good weather boosted crop production.","好天气促进了粮食增产。"],
+["bound","adj.","必定的；受约束的","You are bound to succeed if you persist.","坚持下去你一定会成功。"],
+["budget","n.","预算","We have to keep within the budget.","我们必须控制在预算之内。"],
+["capable","adj.","有能力的","She is capable of handling the job alone.","她有能力独自处理这项工作。"],
+["capacity","n.","容量；能力","The stadium has a capacity of 80,000.","这座体育场能容纳8万人。"],
+["category","n.","类别；范畴","The books fall into three categories.","这些书分为三类。"],
+["cease","v.","停止；终止","The company ceased production last year.","这家公司去年停产了。"],
+["challenge","n./v.","挑战；质疑","The new job is a real challenge.","新工作是一个真正的挑战。"],
+["circumstance","n.","环境；情况","Under no circumstances should you give up.","在任何情况下你都不应放弃。"],
+["cite","v.","引用；列举","He cited several examples to support his view.","他引用了几个例子来支持自己的观点。"],
+["coherent","adj.","连贯的；有条理的","His argument was clear and coherent.","他的论证清晰且有条理。"],
+["coincide","v.","一致；同时发生","My holiday coincides with the festival.","我的假期正好赶上这个节日。"],
+["collapse","v./n.","倒塌；崩溃","The old building collapsed in the storm.","旧楼在暴风雨中倒塌了。"],
+["commence","v.","开始","The ceremony will commence at noon.","仪式将于中午开始。"],
+["commit","v.","承诺；犯（罪）","He committed himself to the project.","他全身心投入到这个项目中。"],
+["commodity","n.","商品；日用品","Oil is an important commodity.","石油是重要的商品。"],
+["compensate","v.","补偿；赔偿","The company compensated him for the loss.","公司赔偿了他的损失。"],
+["compile","v.","编纂；汇编","It took years to compile the dictionary.","编纂这本词典花了数年时间。"],
+["complement","v./n.","补充；使完美","The two skills complement each other.","这两项技能相辅相成。"],
+["comply","v.","遵守；服从","All members must comply with the rules.","所有成员都必须遵守规定。"],
+["component","n.","组成部分；元件","Trust is a key component of teamwork.","信任是团队合作的关键要素。"],
+["comprehensive","adj.","全面的；综合的","The report gives a comprehensive analysis.","报告给出了全面的分析。"],
+["comprise","v.","包含；由…组成","The team comprises ten members.","这个团队由十名成员组成。"],
+["conceive","v.","构思；设想","It is hard to conceive of life without phones.","很难想象没有手机的生活。"],
+["concentrate","v.","集中；专注","Turn off the TV and concentrate on study.","关掉电视，专心学习。"],
+["concept","n.","概念；观念","The concept of time varies across cultures.","时间观念因文化而异。"],
+["confer","v.","授予；商议","The university conferred a degree on her.","大学授予她学位。"],
+["confine","v.","限制；禁闭","Don't confine yourself to one method.","不要把自己局限于一种方法。"],
+["conform","v.","符合；遵从","Products must conform to safety standards.","产品必须符合安全标准。"],
+["consensus","n.","共识；一致意见","The two sides finally reached a consensus.","双方最终达成了共识。"],
+["consequent","adj.","随之发生的","The drought and consequent famine killed many.","干旱及随之而来的饥荒夺去了许多人的生命。"],
+["considerable","adj.","相当大的","He made a considerable contribution.","他做出了相当大的贡献。"],
+["consistent","adj.","一致的；始终如一的","Her actions are consistent with her words.","她言行一致。"],
+["constitute","v.","构成；组成","Women constitute 60% of the staff.","女性占员工总数的60%。"],
+["constraint","n.","约束；限制","Budget constraints limited the research.","预算限制制约了这项研究。"],
+["contaminate","v.","污染","The river was contaminated by waste.","这条河被废物污染了。"],
+["contemplate","v.","沉思；考虑","She contemplated the problem in silence.","她默默地思考这个问题。"],
+["contemporary","adj.","当代的；同时代的","He studies contemporary Chinese literature.","他研究中国当代文学。"],
+["contradict","v.","反驳；与…矛盾","The facts contradict his statement.","事实与他的说法相矛盾。"],
+["controversial","adj.","有争议的","The policy remains highly controversial.","这项政策仍备受争议。"],
+["conventional","adj.","传统的；常规的","He prefers conventional teaching methods.","他偏爱传统教学方法。"],
+["convert","v.","转换；转变","The sofa converts into a bed.","这张沙发可以变成床。"],
+["convey","v.","传达；运送","Words cannot convey my gratitude.","言语无法表达我的感激之情。"],
+["convince","v.","说服；使信服","She convinced me to join the club.","她说服我加入了社团。"],
+["cooperate","v.","合作；配合","The two companies agreed to cooperate.","两家公司同意合作。"],
+["coordinate","v.","协调；配合","We need to coordinate our efforts.","我们需要协调彼此的努力。"],
+["correlate","v.","相关；关联","Success often correlates with effort.","成功往往与努力相关。"],
+["crucial","adj.","关键的；至关重要的","Timing is crucial to the plan's success.","时机对计划的成功至关重要。"],
+["cultivate","v.","培养；耕作","Reading cultivates the mind.","阅读陶冶心智。"],
+["curiosity","n.","好奇心","Curiosity drives scientific discovery.","好奇心推动科学发现。"],
+["decent","adj.","体面的；像样的","He earns a decent salary.","他的薪水还不错。"],
+["decline","v./n.","下降；婉拒","Sales declined sharply last quarter.","上季度销量大幅下滑。"],
+["dedicate","v.","奉献；致力于","She dedicates her life to education.","她毕生致力于教育事业。"],
+["deficiency","n.","缺乏；不足","Vitamin deficiency can cause illness.","缺乏维生素会引发疾病。"],
+["delicate","adj.","精致的；微妙的","This is a delicate diplomatic issue.","这是一个微妙的外交问题。"],
+["demonstrate","v.","证明；演示","The experiment demonstrates his theory.","实验证明了他的理论。"],
+["denote","v.","表示；意味着","A red flag denotes danger.","红旗表示危险。"],
+["deny","v.","否认；拒绝给予","He denied cheating in the exam.","他否认考试作弊。"],
+["deprive","v.","剥夺；使丧失","Lack of sleep deprives you of energy.","睡眠不足会让你失去精力。"],
+["derive","v.","获得；源于","Many English words derive from Latin.","许多英语单词源于拉丁语。"],
+["deteriorate","v.","恶化；变坏","His health deteriorated rapidly.","他的健康状况迅速恶化。"],
+["devise","v.","设计；想出","They devised a new teaching method.","他们设计了一种新的教学方法。"],
+["diagnose","v.","诊断","The disease was diagnosed at an early stage.","这种疾病在早期就被诊断出来了。"],
+["diminish","v.","减少；降低","His influence has diminished over time.","他的影响力随时间减弱了。"],
+["discard","v.","丢弃；抛弃","Discard any outdated information.","丢弃过时的信息。"],
+["discriminate","v.","歧视；区分","It is illegal to discriminate by gender.","性别歧视是违法的。"],
+["displace","v.","取代；迫使离开","Machines have displaced many workers.","机器取代了许多工人。"],
+["dispose","v.","处理；处置","Please dispose of the waste properly.","请妥善处理垃圾。"],
+["distinct","adj.","明显的；独特的","There is a distinct difference between them.","它们之间有明显的区别。"],
+["distort","v.","扭曲；歪曲","The media distorted the facts.","媒体歪曲了事实。"],
+["distribute","v.","分发；分配","Food was distributed to the poor.","食物被分发给穷人。"],
+["diverse","adj.","多样的；不同的","The club attracts people from diverse backgrounds.","社团吸引了不同背景的人。"],
+["dominate","v.","支配；占主导","One company dominates the market.","一家公司主导着市场。"],
+["drastic","adj.","激烈的；严厉的","Drastic measures are needed now.","现在需要采取严厉措施。"],
+["durable","adj.","耐用的；持久的","This fabric is strong and durable.","这种布料结实耐用。"],
+["elaborate","adj./v.","精心的；详述","Could you elaborate on your plan?","能详细说明一下你的计划吗？"],
+["eliminate","v.","消除；淘汰","We must eliminate all risks.","我们必须消除所有风险。"],
+["emerge","v.","出现；浮现","New evidence emerged during the trial.","审判中出现了新证据。"],
+["emphasis","n.","强调；重点","The course places emphasis on practice.","这门课程注重实践。"],
+["encounter","v./n.","遭遇；邂逅","You may encounter difficulties ahead.","前面你可能会遇到困难。"],
+["enhance","v.","提高；增强","Exercise enhances both body and mind.","运动强健体魄、振奋精神。"],
+["enormous","adj.","巨大的","The project requires enormous effort.","这个项目需要巨大的努力。"],
+["ensure","v.","确保；保证","Please ensure all doors are locked.","请确保所有门都锁好。"],
+["enterprise","n.","企业；事业","He runs a small private enterprise.","他经营一家小型私营企业。"],
+["entertain","v.","娱乐；招待","The show entertained millions of viewers.","节目娱乐了数百万观众。"],
+["enthusiastic","adj.","热情的","She is enthusiastic about volunteer work.","她热衷于志愿工作。"],
+["equivalent","adj./n.","等同的；等价物","One dollar is roughly equivalent to seven yuan.","一美元大约相当于七元人民币。"],
+["essence","n.","本质；精髓","The essence of education is inspiration.","教育的本质是启发。"],
+["establish","v.","建立；确立","The school was established in 1950.","这所学校建于1950年。"],
+["estimate","v./n.","估计；估算","Experts estimate the loss at millions.","专家估计损失达数百万。"],
+["evaluate","v.","评价；评估","We evaluate students by various standards.","我们用多种标准评价学生。"],
+["evident","adj.","明显的","It was evident that he was tired.","很明显他累了。"],
+["evolve","v.","进化；逐步发展","Languages evolve constantly.","语言不断演变。"],
+["exceed","v.","超过；超出","The result exceeded our expectations.","结果超出了我们的预期。"],
+["exclude","v.","排除；不包括","We cannot exclude this possibility.","我们不能排除这种可能性。"],
+["exert","v.","运用；施加","He exerted great influence on his students.","他对学生影响很大。"],
+["exhaust","v./n.","使筋疲力尽；废气","The long journey exhausted everyone.","长途旅行让所有人筋疲力尽。"],
+["expand","v.","扩大；扩展","The company plans to expand overseas.","公司计划向海外扩张。"],
+["explicit","adj.","明确的；清楚的","She gave explicit instructions.","她给出了明确的指示。"],
+["exploit","v.","开发；剥削","We should exploit solar energy fully.","我们应充分开发太阳能。"],
+["expose","v.","暴露；揭露","The scandal was exposed by the press.","丑闻被媒体曝光了。"],
+["extensive","adj.","广泛的","The storm caused extensive damage.","暴风雨造成了大面积破坏。"],
+["facilitate","v.","促进；使便利","Technology facilitates communication.","科技便利了交流。"],
+["facility","n.","设施；设备","The gym has modern facilities.","体育馆设施现代化。"],
+["faculty","n.","全体教员；才能","She joined the faculty last year.","她去年加入了教师队伍。"],
+["feasible","adj.","可行的","The plan sounds feasible.","这个计划听起来可行。"],
+["flourish","v.","繁荣；兴旺","Small businesses flourished in the town.","小镇上小企业蓬勃发展。"],
+["fluctuate","v.","波动；起伏","Prices fluctuate with the seasons.","价格随季节波动。"],
+["formulate","v.","制定；阐述","The government formulated a new policy.","政府制定了新政策。"],
+["fundamental","adj.","基本的；根本的","Trust is fundamental to any relationship.","信任是任何关系的基础。"],
+["generate","v.","产生；发电","Wind farms generate clean electricity.","风力发电场生产清洁电力。"],
+["genuine","adj.","真正的；真诚的","Her concern for others is genuine.","她对他人的关心是真诚的。"],
+["global","adj.","全球的","Climate change is a global issue.","气候变化是全球性问题。"],
+["gradual","adj.","逐渐的","Progress will be gradual but steady.","进步会是渐进但稳定的。"],
+["guarantee","v./n.","保证；担保","We guarantee delivery within three days.","我们保证三天内送达。"],
+["hamper","v.","阻碍；妨碍","Heavy rain hampered the rescue work.","大雨阻碍了救援工作。"],
+["hierarchy","n.","等级制度","He climbed the corporate hierarchy quickly.","他在公司层级中升得很快。"],
+["highlight","v.","强调；突出","The report highlights the main risks.","报告强调了主要风险。"],
+["hypothesis","n.","假设","The data supports his hypothesis.","数据支持他的假设。"],
+["identical","adj.","完全相同的","The twins look almost identical.","这对双胞胎看起来几乎一模一样。"],
+["identify","v.","识别；确认","Can you identify the suspect?","你能认出嫌疑人吗？"],
+["ignore","v.","忽视；不理睬","We cannot ignore climate change.","我们不能忽视气候变化。"],
+["illustrate","v.","说明；加插图","The chart illustrates the trend clearly.","图表清楚地说明了这一趋势。"],
+["immense","adj.","巨大的","The task requires immense patience.","这项任务需要极大的耐心。"],
+["implement","v.","实施；执行","The new rules will be implemented next month.","新规则将于下月实施。"],
+["implication","n.","含义；影响","The decision has far-reaching implications.","这个决定影响深远。"],
+["impose","v.","强加；征收","The city imposed a tax on plastic bags.","该市对塑料袋征税。"],
+["incentive","n.","激励；刺激","Bonuses give employees an incentive to work harder.","奖金激励员工更努力工作。"],
+["inevitable","adj.","不可避免的","Change is inevitable in life.","变化在生活中不可避免。"],
+["infrastructure","n.","基础设施","The city invested heavily in infrastructure.","该市大力投资基础设施。"],
+["inherent","adj.","固有的；内在的","Risk is inherent in any investment.","任何投资都有固有风险。"],
+["inhibit","v.","抑制；阻碍","Fear can inhibit learning.","恐惧会阻碍学习。"],
+["initial","adj.","最初的","The initial results are encouraging.","初步结果令人鼓舞。"],
+["initiate","v.","发起；开始","They initiated a reform of the system.","他们发起了体制改革。"],
+["innovation","n.","创新","Innovation drives economic growth.","创新驱动经济增长。"],
+["insight","n.","洞察力；见解","The book offers deep insights into human nature.","这本书对人性有深刻的洞察。"],
+["inspire","v.","激励；启发","His speech inspired a generation.","他的演讲激励了一代人。"],
+["institution","n.","机构；制度","Universities are institutions of learning.","大学是学习机构。"],
+["integrate","v.","整合；融合","The app integrates many useful functions.","这个应用整合了许多实用功能。"],
+["integrity","n.","正直；完整","He is a man of great integrity.","他是一个非常正直的人。"],
+["intellectual","adj./n.","智力的；知识分子","Chess is an intellectual game.","国际象棋是智力游戏。"],
+["intense","adj.","强烈的；紧张的","Competition for jobs is intense.","就业竞争非常激烈。"],
+["interfere","v.","干涉；干扰","Don't interfere in others' private affairs.","不要干涉他人私事。"],
+["interpret","v.","解释；口译","How do you interpret this data?","你如何解读这些数据？"],
+["intervene","v.","干预；介入","The government intervened to stabilize prices.","政府干预以稳定物价。"],
+["intrinsic","adj.","内在的；本质的","Curiosity is an intrinsic human trait.","好奇心是人类的天性。"],
+["investigate","v.","调查","Police are investigating the case.","警方正在调查此案。"],
+["justify","v.","证明…正当","Can you justify your decision?","你能证明你的决定是正当的吗？"],
+["launch","v.","发起；发射；推出","They launched a new product last week.","他们上周推出了一款新产品。"],
+["legislation","n.","立法；法规","New legislation protects consumers' rights.","新法规保护消费者权益。"],
+["legitimate","adj.","合法的；正当的","He raised a legitimate concern.","他提出了合理的关切。"],
+["maintain","v.","维持；主张","Exercise helps maintain good health.","运动有助于保持健康。"],
+["manipulate","v.","操纵；控制","He was accused of manipulating the data.","他被指控操纵数据。"],
+["mechanism","n.","机制；机械装置","The body has its own defense mechanisms.","人体有自己的防御机制。"],
+["minor","adj.","次要的；较小的","It is only a minor problem.","这只是个小问题。"],
+["notion","n.","概念；观念","He rejected the notion that money buys happiness.","他不认同金钱能买来幸福的观念。"],
+["objective","n./adj.","目标；客观的","Our main objective is quality.","我们的主要目标是质量。"],
+["obligation","n.","义务；责任","Citizens have an obligation to obey the law.","公民有守法的义务。"],
+["obscure","adj.","晦涩的；不知名的","The poem is full of obscure references.","这首诗充满晦涩的典故。"],
+["obstacle","n.","障碍","Lack of money is the main obstacle.","缺钱是主要障碍。"],
+["obtain","v.","获得","She obtained a master's degree abroad.","她在国外获得了硕士学位。"],
+["occupy","v.","占据；使忙碌","Reading occupies most of her free time.","阅读占据了她大部分空闲时间。"]
+];
+
+const LISTENINGS = [
+{title:"对话 1：选课咨询", script:"Woman: Hi, Professor Lee. I'm thinking about which elective course to take next semester. Do you have any suggestions?\nMan: Well, it depends on your interests. You're majoring in English, right? How about the course on academic writing?\nWoman: I heard it's quite demanding. There are three essays and one presentation.\nMan: That's true, but it will help you a lot if you plan to publish papers in the future.\nWoman: You're right. I'll sign up for it. Thank you for your advice!\nMan: You're welcome. Good luck!",
+ questions:[
+  {q:"What are the two speakers mainly talking about?", opts:["Choosing an elective course","Writing an essay","Planning a presentation","Changing a major"], a:0},
+  {q:"Why does the man recommend academic writing?", opts:["It is easy to pass","It helps with future paper publishing","It has few assignments","It is a required course"], a:1}
+ ]},
+{title:"访谈 2：远程办公", script:"Host: Welcome to our program. Today we have Ms. Chen, who has worked from home for three years. What do you like most about remote work?\nGuest: Definitely the flexibility. I can arrange my schedule and avoid the long commute. It saves me two hours every day.\nHost: Are there any drawbacks?\nGuest: Well, sometimes it's hard to separate work from personal life. And I do miss chatting with colleagues in the office.\nHost: So would you recommend it to others?\nGuest: Yes, but I'd suggest setting clear boundaries, like a fixed workspace and working hours.",
+ questions:[
+  {q:"What does Ms. Chen like most about remote work?", opts:["Higher pay","Flexibility","More holidays","Better equipment"], a:1},
+  {q:"What problem does she mention?", opts:["Slow internet","Hard to separate work and life","Too many meetings","Loneliness"], a:1},
+  {q:"What is her suggestion?", opts:["Work longer hours","Set clear boundaries","Move to a big city","Change jobs"], a:1}
+ ]},
+{title:"短文 3：睡眠与记忆", script:"Many students stay up late before exams, believing that extra study hours will improve their scores. However, research shows that sleep plays a vital role in memory. During deep sleep, the brain sorts and stores the information learned during the day. Without enough sleep, this process is interrupted, and new knowledge cannot be properly stored. A study found that students who slept eight hours performed thirty percent better in memory tests than those who slept only four hours. Therefore, instead of pulling an all-nighter, students would do better to review efficiently during the day and get a good night's sleep before the exam.",
+ questions:[
+  {q:"What does the passage say about deep sleep?", opts:["It makes people dream","It helps store new knowledge","It reduces study time","It causes tiredness"], a:1},
+  {q:"How much better did students with eight hours of sleep perform?", opts:["10%","20%","30%","40%"], a:2},
+  {q:"What does the speaker advise students to do?", opts:["Stay up late studying","Sleep four hours","Review in the day and sleep well","Take sleeping pills"], a:2}
+ ]}
+];
+
+const READINGS = [
+{title:"Passage 1：微学习的兴起", passage:`In an age of constant digital distraction, traditional long-form study is giving way to a new trend known as microlearning. This approach breaks down complex subjects into bite-sized lessons that typically last between three and ten minutes. Advocates argue that microlearning aligns perfectly with how the modern brain processes information, allowing learners to absorb and retain knowledge more effectively without feeling overwhelmed.
+The corporate world has been quick to adopt this model. Companies now deliver training through short videos, interactive quizzes, and mobile apps that employees can access during their commute or lunch break. Research suggests that learners retain approximately 25 to 60 percent more material when it is delivered in small, spaced intervals rather than in lengthy sessions.
+However, critics warn that microlearning has its limitations. Complex skills such as critical thinking and academic writing cannot be fully mastered through fragmented lessons. They argue that deep understanding requires sustained focus and extended periods of study. The most effective approach, they suggest, may be a hybrid model that combines the convenience of microlearning with the depth of traditional instruction.
+Despite the debate, the popularity of microlearning continues to grow. Educational platforms report millions of new users each year, and universities are beginning to integrate short-form content into their formal curricula.`,
+ questions:[
+  {q:"What is microlearning according to the passage?", opts:["Learning through long lectures","Breaking subjects into short lessons","Learning without teachers","Studying only online"], a:1, ex:"第一段第二句明确指出：microlearning breaks down complex subjects into bite-sized lessons（把复杂科目拆分成短小课程）。"},
+  {q:"Why do companies adopt microlearning?", opts:["It is cheaper than hiring teachers","Employees can learn during spare time","It replaces formal education","It requires no effort"], a:1, ex:"第二段提到员工可以在通勤或午休时通过手机应用学习，即利用碎片时间。"},
+  {q:"What do critics think of microlearning?", opts:["It is completely useless","It cannot fully develop complex skills","It is too expensive","It is too slow"], a:1, ex:"第三段：批评者认为批判性思维和学术写作等复杂技能无法通过碎片课程完全掌握。"},
+  {q:"What do critics suggest as the best approach?", opts:["Only traditional classes","Only microlearning","A hybrid model combining both","No learning at all"], a:2, ex:"第三段末句：a hybrid model that combines the convenience of microlearning with the depth of traditional instruction。"},
+  {q:"What is the author's attitude toward microlearning?", opts:["Strongly opposed","Objective and balanced","Totally supportive","Indifferent"], a:1, ex:"作者既介绍了支持者观点也介绍了批评者观点，最后客观陈述其持续增长的趋势，态度客观中立。"}
+ ]},
+{title:"Passage 2：快时尚的隐性代价", passage:`Fast fashion has revolutionized the clothing industry by offering trendy designs at remarkably low prices. New styles move from the runway to store shelves in a matter of weeks, encouraging consumers to buy more and replace their wardrobes frequently. Yet behind the appealing price tags lies a hidden environmental and social cost.
+The fashion industry is now one of the largest polluters in the world, accounting for about ten percent of global carbon emissions—more than international flights and shipping combined. Producing a single cotton shirt requires approximately 2,700 liters of water, enough to meet one person's drinking needs for two and a half years. Moreover, an estimated 85 percent of all textiles end up in landfills each year, where synthetic fibers can take hundreds of years to decompose.
+The human cost is equally troubling. To keep prices low, many brands outsource production to factories in developing countries, where workers often endure long hours, unsafe conditions, and wages far below a living standard. The 2013 collapse of the Rana Plaza factory in Bangladesh, which killed over 1,100 garment workers, drew global attention to these harsh realities.
+In response, a growing slow fashion movement encourages consumers to buy fewer, higher-quality garments, to repair rather than discard, and to support brands committed to ethical and sustainable practices. Some governments have also begun introducing regulations requiring companies to disclose their supply chains.`,
+ questions:[
+  {q:"What does fast fashion encourage consumers to do?", opts:["Buy expensive clothes","Buy more and replace wardrobes often","Make their own clothes","Wear clothes longer"], a:1, ex:"第一段：低价潮流款式几周内上架，encouraging consumers to buy more and replace their wardrobes frequently。"},
+  {q:"How much of global carbon emissions does the fashion industry produce?", opts:["About 5%","About 10%","About 15%","About 20%"], a:1, ex:"第二段：accounting for about ten percent of global carbon emissions。"},
+  {q:"Producing one cotton shirt requires about how much water?", opts:["270 liters","1,100 liters","2,700 liters","8,500 liters"], a:2, ex:"第二段：approximately 2,700 liters of water。"},
+  {q:"Why do brands outsource production to developing countries?", opts:["Better quality","To keep prices low","Faster delivery","More workers available"], a:1, ex:"第三段：To keep prices low, many brands outsource production…"},
+  {q:"What does the slow fashion movement encourage?", opts:["Buying cheap clothes in bulk","Buying fewer but higher-quality garments","Throwing away old clothes","Following every trend"], a:1, ex:"末段：encourages consumers to buy fewer, higher-quality garments, to repair rather than discard。"}
+ ]}
+];
+
+const TRANSLATIONS = [
+{cn:"随着科技的飞速发展，人工智能正在深刻地改变我们的生活方式。", ref:"With the rapid development of technology, artificial intelligence is profoundly changing our way of life.", note:"亮点：With the rapid development of… 开头；profoundly changing 深刻改变。"},
+{cn:"中国政府高度重视环境保护，已经采取了一系列措施来减少污染。", ref:"The Chinese government attaches great importance to environmental protection and has taken a series of measures to reduce pollution.", note:"固定搭配：attach great importance to 高度重视；a series of measures 一系列措施。"},
+{cn:"传统文化在现代社会中仍然发挥着重要作用。", ref:"Traditional culture still plays an important role in modern society.", note:"高频句型：play an important role in…"},
+{cn:"越来越多的年轻人选择在网上学习新技能。", ref:"More and more young people choose to learn new skills online.", note:"更高级的表达：An increasing number of young people…"},
+{cn:"良好的阅读习惯不仅能增长知识，还能开阔视野。", ref:"Good reading habits not only increase knowledge but also broaden one's horizons.", note:"not only…but also… 结构；broaden one's horizons 开阔视野。"},
+{cn:"城市化为经济发展带来了机遇，也带来了交通拥堵等问题。", ref:"Urbanization has brought opportunities for economic development, as well as problems such as traffic congestion.", note:"as well as 表示"也"；traffic congestion 交通拥堵。"},
+{cn:"只有通过不断实践，我们才能真正掌握一门外语。", ref:"Only through constant practice can we truly master a foreign language.", note:"Only + 状语 位于句首用部分倒装：can we truly master。"},
+{cn:"大学生活不仅教会我们专业知识，也培养了我们的独立思考能力。", ref:"College life not only teaches us professional knowledge but also cultivates our ability to think independently.", note:"cultivate one's ability to do sth. 培养做某事的能力。"}
+];
+
+const WRITING_TEMPLATES = [
+{title:"模板一：观点对比型（正反观点议论文）", body:`第一段：引出话题，说明存在两种观点
+When it comes to ______, people's opinions vary greatly. Some people believe that ______, while others hold the opposite view.
+
+第二段：分述两种观点及理由
+Those who support the former view argue that ______. In addition, they claim that ______. However, people on the other side maintain that ______, because ______.
+
+第三段：表明自己的立场
+As far as I am concerned, I am in favor of the former/latter view. The reasons are as follows. First, ______. Second, ______. Therefore, it is safe to conclude that ______.`},
+{title:"模板二：现象解释型（分析原因/影响）", body:`第一段：描述现象
+In recent years, ______ has become a common phenomenon, which has aroused wide public concern.
+
+第二段：分析原因（两至三条）
+Several factors account for this phenomenon. To begin with, ______. What's more, ______. Last but not least, ______.
+
+第三段：总结并提出建议/展望
+Considering all the above, it is high time that we took effective measures to ______. Only in this way can we ______.`},
+{title:"模板三：问题解决型", body:`第一段：提出问题
+Nowadays, an increasing number of people are confronted with the problem of ______, which may bring about serious consequences if left unsolved.
+
+第二段：提出解决办法
+To tackle this problem, several effective measures should be taken. First of all, ______. In addition, ______. More importantly, ______.
+
+第三段：总结
+In conclusion, solving the problem of ______ requires the joint efforts of both individuals and society. With these measures implemented, we have every reason to believe that ______.`}
+];
+
+const PHRASES = [
+"play an increasingly important role in… 在…中发挥越来越重要的作用",
+"attach great importance to… 高度重视…",
+"as far as I am concerned 就我而言",
+"It is widely believed that… 人们普遍认为…",
+"There is no denying that… 不可否认…",
+"From my perspective / viewpoint 在我看来",
+"take effective measures to do sth. 采取有效措施做某事",
+"have a profound impact on… 对…有深远影响",
+"in the long run 从长远来看",
+"give rise to 引起；导致",
+"account for 解释；占（比例）",
+"be confronted with 面临",
+"spare no effort to do sth. 不遗余力做某事",
+"It goes without saying that… 不言而喻…",
+"on the contrary 相反",
+"in terms of 就…而言",
+"contribute to 有助于；促成",
+"be beneficial to 对…有益",
+"a growing number of 越来越多的",
+"last but not least 最后但同样重要的是"
+];
+
+/* ================= 本地存储 ================= */
+const LS_KEY = "cet6_v1";
+let state = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+state.known = state.known || [];       // 已掌握单词
+state.notebook = state.notebook || []; // 生词本
+state.checkins = state.checkins || []; // 打卡日期 yyyy-mm-dd
+state.quizHistory = state.quizHistory || []; // {date, score, total, type}
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+function todayStr(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+
+/* ================= 导航 ================= */
+document.querySelectorAll("#nav button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById("page-"+b.dataset.page).classList.add("active");
+    if(b.dataset.page==="stats") renderStats();
+    if(b.dataset.page==="home") renderHome();
+  });
+});
+document.querySelectorAll("#page-words .tabs button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#page-words .tabs button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    ["list","card","quiz","notebook"].forEach(t=>{
+      document.getElementById("wtab-"+t).style.display = (t===b.dataset.wtab)?"block":"none";
+    });
+    if(b.dataset.wtab==="notebook") renderNotebook();
+    if(b.dataset.wtab==="card") showCard();
+    if(b.dataset.wtab==="quiz") startVocabQuiz();
+  });
+});
+
+/* ================= 语音 ================= */
+function speak(text, rate){
+  if(!("speechSynthesis" in window)){ alert("当前浏览器不支持语音朗读"); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-US"; u.rate = rate || 1;
+  speechSynthesis.speak(u);
+}
+function stopSpeak(){ if("speechSynthesis" in window) speechSynthesis.cancel(); }
+
+/* ================= 首页 ================= */
+function renderHome(){
+  const exam = new Date("2026-12-19T09:00:00");
+  const days = Math.max(0, Math.ceil((exam - new Date()) / 86400000));
+  document.getElementById("countdown-days").textContent = days;
+  document.getElementById("home-known").textContent = state.known.length;
+  document.getElementById("home-streak").textContent = calcStreak();
+  const checked = state.checkins.includes(todayStr());
+  const btn = document.getElementById("btn-checkin");
+  btn.disabled = checked;
+  btn.textContent = checked ? "今天已打卡 ✓" : "打卡 +1";
+  document.getElementById("checkin-status").textContent =
+    checked ? "今天已完成打卡，继续保持！" : "完成今天的学习任务后记得打卡";
+  dailyWord(true);
+}
+function calcStreak(){
+  let streak = 0;
+  const set = new Set(state.checkins);
+  const d = new Date();
+  if(!set.has(todayStr())) d.setDate(d.getDate()-1); // 今天没打卡从昨天算起
+  while(true){
+    const s = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    if(set.has(s)){ streak++; d.setDate(d.getDate()-1); } else break;
+  }
+  return streak;
+}
+function checkIn(){
+  const t = todayStr();
+  if(!state.checkins.includes(t)){ state.checkins.push(t); save(); }
+  renderHome();
+}
+let dailyIdx = new Date().getDate() % WORDS.length;
+function dailyWord(keep){
+  if(!keep) dailyIdx = (dailyIdx + 7) % WORDS.length;
+  const w = WORDS[dailyIdx];
+  document.getElementById("daily-word").innerHTML =
+    `<div style="background:#f6f7fc; border-radius:12px; padding:16px">
+       <div style="display:flex; align-items:center; gap:10px">
+         <span class="word-en" style="font-size:22px">${w[0]}</span>
+         <button class="icon-btn" onclick="speak('${w[0]}')">🔊</button>
+       </div>
+       <div style="margin-top:6px"><span class="pos">${w[1]}</span>${w[2]}</div>
+       <div style="margin-top:8px; color:var(--muted); font-size:13px">${w[3]}<br>${w[4]}</div>
+     </div>`;
+}
+
+/* ================= 单词：列表 ================= */
+function renderWordList(){
+  const kw = (document.getElementById("word-search").value || "").toLowerCase();
+  const tb = document.getElementById("word-tbody");
+  tb.innerHTML = "";
+  WORDS.forEach((w,i)=>{
+    if(kw && !w[0].toLowerCase().includes(kw) && !w[2].includes(kw)) return;
+    const known = state.known.includes(w[0]);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><span class="word-en">${w[0]}</span></td>
+      <td><span class="pos">${w[1]}</span>${w[2]}</td>
+      <td style="color:var(--muted); font-size:13px">${w[3]}<br>${w[4]}</td>
+      <td>
+        <button class="icon-btn" title="发音" onclick="speak('${w[0]}')">🔊</button>
+        <button class="btn sm ${known?"green":"ghost"}" onclick="toggleKnown(${i})">${known?"已掌握":"标为掌握"}</button>
+      </td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById("known-count").textContent = state.known.length;
+  document.getElementById("known-bar").style.width = (state.known.length/WORDS.length*100)+"%";
+}
+function toggleKnown(i){
+  const w = WORDS[i][0];
+  const k = state.known.indexOf(w);
+  if(k>=0){ state.known.splice(k,1); }
+  else{
+    state.known.push(w);
+    const nb = state.notebook.indexOf(w);
+    if(nb>=0) state.notebook.splice(nb,1);
+  }
+  save(); renderWordList();
+}
+
+/* ================= 单词：卡片 ================= */
+let cardQueue = [], cardPos = 0;
+function buildCardQueue(){
+  cardQueue = WORDS.map((_,i)=>i).sort(()=>Math.random()-.5);
+  cardPos = 0;
+}
+function showCard(){
+  if(cardQueue.length===0 || cardPos>=cardQueue.length) buildCardQueue();
+  const w = WORDS[cardQueue[cardPos]];
+  document.getElementById("flashcard").classList.remove("flipped");
+  document.getElementById("fc-word").textContent = w[0];
+  document.getElementById("fc-meaning").innerHTML = `<span class="pos">${w[1]}</span>${w[2]}`;
+  document.getElementById("fc-example").innerHTML = `${w[3]}<br>${w[4]}`;
+  document.getElementById("fc-progress").textContent = `第 ${cardPos+1} / ${cardQueue.length} 张 · 已掌握 ${state.known.length} 词`;
+}
+function speakWord(){ speak(WORDS[cardQueue[cardPos]][0]); }
+function markCard(known){
+  const w = WORDS[cardQueue[cardPos]][0];
+  if(known){
+    if(!state.known.includes(w)) state.known.push(w);
+    const nb = state.notebook.indexOf(w); if(nb>=0) state.notebook.splice(nb,1);
+  }else{
+    if(!state.notebook.includes(w)) state.notebook.push(w);
+  }
+  save();
+  cardPos++;
+  showCard();
+  renderWordList();
+}
+
+/* ================= 单词：自测 ================= */
+let quizData = [];
+function makeVocabQuestions(n, pool){
+  const src = pool || WORDS.map((_,i)=>i);
+  const idxs = [...src].sort(()=>Math.random()-.5).slice(0, Math.min(n, src.length));
+  return idxs.map(i=>{
+    const w = WORDS[i];
+    const wrong = WORDS.map((_,j)=>j).filter(j=>j!==i).sort(()=>Math.random()-.5).slice(0,3).map(j=>WORDS[j][2]);
+    const opts = [...wrong, w[2]].sort(()=>Math.random()-.5);
+    return {q:w[0], word:w[0], opts, a:opts.indexOf(w[2]), type:"vocab"};
+  });
+}
+function startVocabQuiz(){
+  quizData = makeVocabQuestions(10);
+  renderQuiz(document.getElementById("quiz-area"), quizData, "词汇自测（10题）", (score,total)=>{
+    state.quizHistory.push({date:new Date().toLocaleString("zh-CN"), score, total, type:"词汇自测"});
+    save();
+  });
+}
+/* 通用选择題渲染器 */
+function renderQuiz(container, questions, title, onDone){
+  container.innerHTML = `<h2 style="font-size:18px; margin-bottom:16px">${title}</h2>`;
+  const answers = new Array(questions.length).fill(-1);
+  questions.forEach((item,qi)=>{
+    const div = document.createElement("div");
+    div.className = "q-block";
+    div.innerHTML = `<div class="q-title">${qi+1}. ${item.qType==="reading"?item.q:`单词 <b style="color:var(--primary); font-size:18px">${item.q}</b> 的中文意思是：`}</div>`;
+    item.opts.forEach((o,oi)=>{
+      const b = document.createElement("button");
+      b.className = "opt"; b.textContent = String.fromCharCode(65+oi) + ". " + o;
+      b.onclick = ()=>{
+        answers[qi]=oi;
+        div.querySelectorAll(".opt").forEach((x,xi)=>x.classList.toggle("selected", xi===oi));
+      };
+      div.appendChild(b);
+    });
+    container.appendChild(div);
+  });
+  const btn = document.createElement("button");
+  btn.className = "btn"; btn.textContent = "提交答案"; btn.style.marginTop = "6px";
+  btn.onclick = ()=>{
+    if(answers.includes(-1) && !confirm("还有题目未作答，确定提交吗？")) return;
+    let score = 0;
+    const blocks = container.querySelectorAll(".q-block");
+    questions.forEach((item,qi)=>{
+      const opts = blocks[qi].querySelectorAll(".opt");
+      opts.forEach((o,oi)=>{
+        o.disabled = true;
+        if(oi===item.a) o.classList.add("correct");
+        else if(oi===answers[qi]) o.classList.add("wrong");
+        o.classList.remove("selected");
+      });
+      if(answers[qi]===item.a) score++;
+      if(item.ex){
+        const ex = document.createElement("div");
+        ex.className = "explain"; ex.style.display = "block";
+        ex.innerHTML = `<b>解析：</b>${item.ex}`;
+        blocks[qi].appendChild(ex);
+      }
+    });
+    btn.disabled = true;
+    const res = document.createElement("div");
+    res.className = "result-hero";
+    const pct = Math.round(score/questions.length*100);
+    res.innerHTML = `<div class="result-score">${score}/${questions.length}</div>
+      <p style="color:var(--muted)">正确率 ${pct}% · ${pct>=80?"太棒了，继续保持！":pct>=60?"及格线以上，继续加油！":"别灰心，多刷几遍单词卡！"}</p>`;
+    container.insertBefore(res, btn);
+    if(onDone) onDone(score, questions.length);
+    window.scrollTo({top:0, behavior:"smooth"});
+  };
+  container.appendChild(btn);
+}
+
+/* ================= 生词本 ================= */
+function renderNotebook(){
+  const body = document.getElementById("notebook-body");
+  if(state.notebook.length===0){
+    body.innerHTML = `<p style="color:var(--muted)">生词本是空的。去卡片模式刷词，不认识的单词会自动加入这里。</p>`;
+    return;
+  }
+  body.innerHTML = "";
+  state.notebook.forEach(name=>{
+    const w = WORDS.find(x=>x[0]===name); if(!w) return;
+    const div = document.createElement("div");
+    div.style.cssText = "display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #eef0f5";
+    div.innerHTML = `<div><span class="word-en">${w[0]}</span> <span class="pos" style="margin-left:8px">${w[1]}</span>${w[2]}</div>
+      <div><button class="icon-btn" onclick="speak('${w[0]}')">🔊</button>
+      <button class="btn sm green" onclick="masterNotebook('${w[0]}')">已掌握</button></div>`;
+    body.appendChild(div);
+  });
+}
+function masterNotebook(name){
+  state.notebook = state.notebook.filter(x=>x!==name);
+  if(!state.known.includes(name)) state.known.push(name);
+  save(); renderNotebook(); renderWordList();
+}
+
+/* ================= 听力 ================= */
+function renderListening(){
+  const wrap = document.getElementById("listening-list");
+  LISTENINGS.forEach((L,li)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    let html = `<h2 style="font-size:18px">${L.title}</h2>
+      <div style="margin:12px 0; display:flex; gap:10px; flex-wrap:wrap">
+        <button class="btn sm" onclick="speak(LISTENINGS[${li}].script, 0.92)">▶ 播放（正常语速）</button>
+        <button class="btn ghost sm" onclick="speak(LISTENINGS[${li}].script, 0.7)">🐢 慢速播放</button>
+        <button class="btn ghost sm" onclick="stopSpeak()">⏹ 停止</button>
+        <button class="btn ghost sm" onclick="toggleTranscript(${li})">显示/隐藏原文</button>
+      </div>
+      <div id="transcript-${li}" style="display:none; background:#f6f7fc; border-radius:10px; padding:14px; font-size:13px; line-height:1.9; white-space:pre-line; margin-bottom:14px">${L.script}</div>`;
+    L.questions.forEach((q,qi)=>{
+      html += `<div class="q-block" id="lq-${li}-${qi}"><div class="q-title">${qi+1}. ${q.q}</div>`;
+      q.opts.forEach((o,oi)=>{
+        html += `<button class="opt" onclick="answerListening(${li},${qi},${oi},this)">${String.fromCharCode(65+oi)}. ${o}</button>`;
+      });
+      html += `</div>`;
+    });
+    card.innerHTML = html;
+    wrap.appendChild(card);
+  });
+}
+function toggleTranscript(i){
+  const t = document.getElementById("transcript-"+i);
+  t.style.display = t.style.display==="none" ? "block" : "none";
+}
+function answerListening(li,qi,oi,btn){
+  const q = LISTENINGS[li].questions[qi];
+  const block = document.getElementById(`lq-${li}-${qi}`);
+  block.querySelectorAll(".opt").forEach((o,x)=>{
+    o.disabled = true;
+    if(x===q.a) o.classList.add("correct");
+    else if(x===oi) o.classList.add("wrong");
+  });
+}
+
+/* ================= 阅读 ================= */
+function renderReading(){
+  const wrap = document.getElementById("reading-list");
+  READINGS.forEach((R,ri)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    const paras = R.passage.split("\n").map(p=>`<p>${p}</p>`).join("");
+    card.innerHTML = `<h2 style="font-size:18px; margin-bottom:14px">${R.title}</h2>
+      <div class="passage">${paras}</div><div class="rq-body"></div>`;
+    renderQuiz(card.querySelector(".rq-body"), R.questions.map(q=>({...q, qType:"reading"})), "选择题（5题）", (score,total)=>{
+      state.quizHistory.push({date:new Date().toLocaleString("zh-CN"), score, total, type:"阅读·"+R.title.split("：")[0]});
+      save();
+    });
+    wrap.appendChild(card);
+  });
+}
+
+/* ================= 翻译 ================= */
+function renderTranslation(){
+  const wrap = document.getElementById("translation-list");
+  TRANSLATIONS.forEach((T,ti)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div style="font-weight:600; font-size:16px; margin-bottom:12px">${ti+1}. ${T.cn}</div>
+      <textarea id="tr-input-${ti}" placeholder="在这里写下你的英文翻译…"></textarea>
+      <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
+        <button class="btn sm" onclick="showRef(${ti})">对照参考答案</button>
+        <button class="btn ghost sm" onclick="speak(TRANSLATIONS[${ti}].ref)">🔊 朗读参考译文</button>
+      </div>
+      <div class="ref-answer" id="tr-ref-${ti}">
+        <b>参考译文：</b>${T.ref}<br>
+        <b>要点：</b>${T.note}
+      </div>`;
+    wrap.appendChild(card);
+  });
+}
+function showRef(i){ document.getElementById("tr-ref-"+i).style.display = "block"; }
+
+/* ================= 写作 ================= */
+function renderWriting(){
+  const wrap = document.getElementById("writing-content");
+  const card1 = document.createElement("div");
+  card1.className = "card";
+  card1.innerHTML = `<h2 style="font-size:18px; margin-bottom:14px">三大万能模板</h2>`;
+  WRITING_TEMPLATES.forEach(t=>{
+    const d = document.createElement("details");
+    d.innerHTML = `<summary>${t.title}</summary><div class="content"><pre>${t.body}</pre></div>`;
+    card1.appendChild(d);
+  });
+  wrap.appendChild(card1);
+  const card2 = document.createElement("div");
+  card2.className = "card";
+  card2.innerHTML = `<h2 style="font-size:18px; margin-bottom:6px">20个高分表达</h2>
+    <p class="sub">点击任意表达可听发音（英文部分）</p>`;
+  PHRASES.forEach(p=>{
+    const el = document.createElement("span");
+    el.className = "phrase"; el.textContent = p;
+    el.onclick = ()=>speak(p.split(" ")[0].length>2 ? p.replace(/[\u4e00-\u9fa5].*/,"").trim() : p);
+    card2.appendChild(el);
+  });
+  wrap.appendChild(card2);
+  const card3 = document.createElement("div");
+  card3.className = "card";
+  card3.innerHTML = `<h2 style="font-size:18px; margin-bottom:10px">考场写作步骤</h2>
+    <div style="font-size:14px; line-height:2">
+    ① <b>审题 2 分钟</b>：确定题型（观点对比 / 现象解释 / 问题解决），圈出关键词<br>
+    ② <b>列提纲 3 分钟</b>：三段式结构，每段写出一个核心句<br>
+    ③ <b>写作 20 分钟</b>：套用模板句式，保证 150-200 词<br>
+    ④ <b>检查 3 分钟</b>：主谓一致、单复数、时态、拼写</div>`;
+  wrap.appendChild(card3);
+}
+
+/* ================= 模拟测试 ================= */
+let mockTimer = null;
+function startMock(){
+  const vocab = makeVocabQuestions(10);
+  const ri = Math.floor(Math.random()*READINGS.length);
+  const R = READINGS[ri];
+  const questions = [...vocab, ...R.questions.map(q=>({...q, qType:"reading"}))];
+  const area = document.getElementById("mock-area");
+  area.style.textAlign = "left"; area.style.padding = "22px";
+  area.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:6px">
+      <h2 style="font-size:18px">模拟测试进行中</h2>
+      <div>剩余时间：<span class="timer" id="mock-timer">15:00</span></div>
+    </div>
+    <div style="margin:14px 0 22px"><b>第一部分：词汇（10题）</b></div><div id="mock-q"></div>`;
+  let left = 15*60, finished = false;
+  const done = (score,total)=>{
+    if(finished) return; finished = true;
+    clearInterval(mockTimer);
+    document.getElementById("mock-timer").textContent = "已交卷";
+    state.quizHistory.push({date:new Date().toLocaleString("zh-CN"), score, total, type:"模拟测试"});
+    save();
+  };
+  const paras = R.passage.split("\n").map(p=>`<p>${p}</p>`).join("");
+  renderQuiz(area.querySelector("#mock-q"), questions, "", done);
+  const h = document.createElement("div");
+  h.innerHTML = `<div style="margin:26px 0 14px"><b>第二部分：阅读理解</b>（${R.title}）</div><div class="passage">${paras}</div>`;
+  const blocks = area.querySelectorAll(".q-block");
+  area.querySelector("#mock-q").insertBefore(h, blocks[10] || null);
+  mockTimer = setInterval(()=>{
+    left--;
+    const m = String(Math.floor(left/60)).padStart(2,"0"), s = String(left%60).padStart(2,"0");
+    document.getElementById("mock-timer").textContent = `${m}:${s}`;
+    if(left<=0){ alert("时间到！自动交卷。"); const sb=[...area.querySelectorAll("button.btn")].find(b=>b.textContent==="提交答案"); if(sb) sb.click(); }
+  }, 1000);
+}
+
+/* ================= 统计 ================= */
+function renderStats(){
+  document.getElementById("st-known").textContent = state.known.length + " / " + WORDS.length;
+  document.getElementById("st-quiz-count").textContent = state.quizHistory.length;
+  if(state.quizHistory.length){
+    const avg = state.quizHistory.reduce((s,q)=>s+q.score/q.total,0)/state.quizHistory.length;
+    document.getElementById("st-quiz-avg").textContent = Math.round(avg*100) + "%";
+  } else document.getElementById("st-quiz-avg").textContent = "--";
+  const cal = document.getElementById("calendar");
+  cal.innerHTML = "";
+  ["日","一","二","三","四","五","六"].forEach(d=>{
+    cal.innerHTML += `<div class="cal-day head">${d}</div>`;
+  });
+  const now = new Date(), y = now.getFullYear(), m = now.getMonth();
+  const first = new Date(y,m,1).getDay(), daysInMonth = new Date(y,m+1,0).getDate();
+  for(let i=0;i<first;i++) cal.innerHTML += `<div></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const s = y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+    const checked = state.checkins.includes(s);
+    cal.innerHTML += `<div class="cal-day ${checked?"checked":""}">${d}</div>`;
+  }
+  const hist = document.getElementById("quiz-history");
+  if(state.quizHistory.length===0){
+    hist.innerHTML = `<span style="color:var(--muted)">还没有测试记录，去"单词自测"或"模拟测试"刷一套吧。</span>`;
+  }else{
+    hist.innerHTML = state.quizHistory.slice(-10).reverse().map(q=>{
+      const pct = Math.round(q.score/q.total*100);
+      return `<div>${q.date} · ${q.type} · <span class="badge ${pct>=60?"g":"r"}">${q.score}/${q.total}（${pct}%）</span></div>`;
+    }).join("");
+  }
+}
+function resetAll(){
+  if(confirm("确定清空所有学习记录吗？此操作不可恢复！")){
+    localStorage.removeItem(LS_KEY);
+    state = {known:[],notebook:[],checkins:[],quizHistory:[]};
+    renderStats(); renderWordList(); renderHome();
+  }
+}
+
+/* ================= 初始化 ================= */
+buildCardQueue();
+renderHome();
+renderWordList();
+renderListening();
+renderReading();
+renderTranslation();
+renderWriting();
+</script>
+</body>
+</html>
