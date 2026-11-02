@@ -123,8 +123,59 @@
   .result-hero{ text-align:center; padding:30px 0 10px; }
   .result-score{ font-size:56px; font-weight:800; color:var(--primary); }
   @media (max-width:640px){
-    .header-inner{ flex-wrap:wrap; height:auto; padding:10px 0; gap:10px; }
-    .fc-word{ font-size:30px; }
+    /* ===== iPhone 15 Pro (393px) 移动端适配 ===== */
+    header{ padding:0 12px; padding-top:env(safe-area-inset-top); }
+    .header-inner{ flex-wrap:wrap; height:auto; padding:10px 0 0; gap:8px; }
+    .logo{ font-size:17px; }
+    .logo small{ display:block; margin:2px 0 0; font-size:11px; }
+    /* 导航：整行横向滑动，44px 触控高度，隐藏滚动条 */
+    nav{ flex-basis:100%; gap:6px; padding-bottom:10px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    nav::-webkit-scrollbar{ display:none; }
+    nav button{ padding:10px 16px; font-size:14px; min-height:40px; }
+    main{ padding:16px 12px calc(60px + env(safe-area-inset-bottom)); }
+    h2{ font-size:19px; }
+    .sub{ font-size:13px; margin-bottom:14px; }
+    .card{ padding:16px 14px; border-radius:12px; }
+    .grid-2,.grid-3{ grid-template-columns:1fr; }
+    .stat-card{ padding:18px 10px; }
+    .stat-num{ font-size:26px; }
+    /* 按钮触控友好 */
+    .btn{ padding:12px 18px; font-size:14px; min-height:44px; }
+    .btn.sm{ padding:8px 12px; min-height:36px; }
+    /* 输入框 16px 防止 iOS 聚焦自动放大 */
+    .search{ max-width:100%; font-size:16px; padding:12px 14px; }
+    textarea{ font-size:16px; }
+    /* 标签页可横向滑动 */
+    .tabs{ flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .tabs::-webkit-scrollbar{ display:none; }
+    .tabs button{ white-space:nowrap; padding:9px 14px; min-height:38px; }
+    /* 表格压缩 */
+    table{ font-size:13px; }
+    th,td{ padding:8px 8px; }
+    .word-en{ font-size:14px; }
+    /* 单词卡片 */
+    .flashcard{ height:230px; }
+    .fc-word{ font-size:28px; }
+    .fc-meaning{ font-size:18px; }
+    .fc-example{ font-size:13px; }
+    .fc-controls{ flex-wrap:wrap; gap:10px; }
+    .fc-controls .btn{ flex:1; min-width:120px; }
+    /* 阅读文章与选项 */
+    .passage{ padding:14px; font-size:14px; line-height:1.8; }
+    .opt{ padding:12px 14px; font-size:14px; min-height:44px; }
+    /* 真题题库：链接竖排更易点 */
+    #papers-tbody td:first-child{ white-space:normal; font-size:13px; }
+    #papers-tbody .btn{ margin:3px 4px 3px 0; }
+    /* 音频播放器 */
+    audio{ height:40px; }
+    /* 日历 */
+    .calendar{ gap:4px; }
+    .cal-day{ font-size:12px; border-radius:6px; }
+    /* 模考计时与结果 */
+    .timer{ font-size:22px; }
+    .result-score{ font-size:44px; }
+    details .content{ padding:12px 14px; font-size:13px; }
+    summary{ padding:12px 14px; font-size:14px; }
   }
 </style>
 </head>
